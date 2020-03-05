@@ -1,0 +1,51 @@
+extends ../index
+
+block body
+    script.
+        $(function(){
+            $("#btn_insert").click(function(){
+                let name=$("#BName").val()
+                if(name==null || name==""){
+                    alert("도서 이름을 입력하세요!")
+                    return false
+                }
+                $.get("/book/name",{name:name},function(result){
+                    if(result){
+                        let retName=result.BName
+                        if(name==retName){
+                            alert("이미 등록된 도서 입니다")
+                            return false
+                        }
+                    }
+                    $("form").submit()
+                })
+            })
+            $("#btn_delete").click(function(){
+                let id=$(this).data("id")
+                if(!confirm("삭제할까요?")){
+                    return false
+                }
+                document.location.replace("/book/delete/"+id)
+            })
+            $("#btn_list").click(function(){
+                document.location.replace("/book")
+            })
+        })
+    form(method='POST')
+        -var inputClasses= ['w3-input','w3-border']
+        div.w3-container
+            input#BName(name='BName',value=book.BName,type='text',placeholder='이름', class=inputClasses)
+        div.w3-container
+            input#BWriter(name='BWriter',value=book.BName,type='text',placeholder='저자',class=inputClasses)
+        div.w3-container
+            input#BComp(name='BComp',value=book.BName,type='text',placeholder='출판사',class=inputClasses)
+        div.w3-container
+            input#BYear(name='BYear',value=book.BName,type='calender',placeholder='출판년도',class=inputClasses)
+        div.w3-container
+            input#BPrice(name='BPrice',value=book.BName,type='number',placeholder='가격',class=inputClasses)
+        -var btnClasses=['w3-button','w3-blue','w3-right','w3-margin-right']
+
+        button#btn_insert(type='button',class=btnClasses)= btnText
+        button#btn_delete(type='button',class=btnClasses,data-id=book._id).w3-red 삭제
+        button#btn_list(type='button',class=btnClasses).w3-green 목록으로
+        
