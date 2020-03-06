@@ -25,7 +25,8 @@ block body
                 if(!confirm("삭제할까요?")){
                     return false
                 }
-                document.location.replace("/book/delete/"+id)
+                //router에서 보낸 json 데이터를 js 코드에 포함할때는 '#{book._id}'
+                document.location.replace("/book/delete/#{book._id}")
             })
             $("#btn_list").click(function(){
                 document.location.replace("/book")
