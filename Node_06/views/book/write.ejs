@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include("../include-head") %>
+<script>
+    $(function(){
+        $(".btn-delete").click(function(){
+            if(confirm("삭제할까요?")){
+                document.location.replace("/book/delete/<%- book._id %>")
+            }
+        })
+        $(".btn-list").click(function(){
+            document.location.replace("/book")
+        })
+    })
+</script>
+</head>
+<body>
+    <form method="POST" class="w3-container w3-padding-32">
+        <fieldset class="w3-border-blue">
+        <legend>
+            <% if(formTitle=='UPDATE') { %>
+                도서정보 수정
+            <% } else { %>
+                도서 정보 추가
+            <% } %>
+        </legend>
+        <label class="w3-text-blue" for="bTitle"><b>도서명</b></label>
+        <input name="bTitle" id="bTitle" value="<%- book.bTitle %>" class="w3-input w3-border">
+
+        <label class="w3-text-blue" for="bWriter"><b>저자</b></label>
+        <input name="bWriter" id="bWriter" value="<%- book.bWriter %>" class="w3-input w3-border">
+
+        <label class="w3-text-blue" for="bComp"><b>출판사</b></label>
+        <input name="bComp" id="bComp" value="<%- book.bComp %>" class="w3-input w3-border">
+
+        <label class="w3-text-blue" for="bPrice"><b>가격</b></label>
+        <input name="bPrice" id="bPrice" value="<%- book.bPrice %>" type="number" class="w3-input w3-border">
+
+        <button class="w3-button w3-blue w3-right">저장</button>
+        <% if(formTitle=="UPDATE") { %>
+            <button type="button" class="w3-button w3-red w3-right btn-delete">삭제</button>
+            <button type="button" class="w3-button w3-green w3-right btn-list">리스트로</button>
+        <% } %>
+    </fieldset>
+    </form>
+</body>
+</html>

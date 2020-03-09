@@ -74,8 +74,9 @@ router.post("/update/:id",function(req,res){
     })
 }) //router.post("/update")
 // router.delete("/delete/:id")
-router.get("/delete/:id",function(req,res){
-    let id=req.params.id
+router.get("/delete/:_id",function(req,res){
+    let _id=req.params._id
+    console.log("!!! dlete post:"+_id)
     bookVO.deleteOne({_id:id},function(err,data){
         res.redirect("/book")
     })

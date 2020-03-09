@@ -1,0 +1,32 @@
+doctype html
+html(lang="ko")
+    head
+        meta(charset="utf-8")
+        title book
+        link(rel="stylesheet", href="https://www.w3schools.com/w3css/4/w3.css")
+        script(src='https://code.jquery.com/jquery-latest.min.js')
+    script.
+        $(function(){
+            $("#tuple").click(function(){
+                let _id=$(this).data("_id")
+                document.location.href="/update/"+_id
+            })
+        })
+    body
+        h3 도서정보
+        section
+            table.w3-table.w3-striped.w3-hoverable.w3-border
+                tr
+                    th 도서명
+                    th 저자
+                    th 출판사
+                    th 가격
+                each book,index in bookList
+                    tr#tuple(data-_id=book._id)
+                        td=book.bTitle
+                        td=book.bWriter
+                        td=book.bComp
+                        td=book.bPrice
+            a(href="/insert")
+                button#btn_insert.w3-button.w3-blue.w3-right 도서 추가
+                    
