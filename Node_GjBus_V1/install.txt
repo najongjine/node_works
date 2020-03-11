@@ -1,0 +1,12 @@
+npm i -save cookie-parser
+npm i -save debug
+npm i -save express
+npm i -save body-parser
+npm i -save http-errors
+npm i -save pug
+npm i -save morgan
+npm i -save mongoose
+npm i -save request
+npm i -save express-paginate
+npm i
+

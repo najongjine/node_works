@@ -1,0 +1,16 @@
+
+block navi
+    ul.main-menu
+        li
+            a(href="/") 홈
+        li
+            form(action="/gjbus/searchStation")
+                input(name="station", type="(text)",placeholder="정류장 정보를 입력한후 enter")
+        li
+            a(href="/gjbus/viewStation") View Station
+        li
+            a(href="#") 로그인
+        li
+            a(href="#") 회원가입
+        li
+            a(href="/gjbus/getStation") Get Station
