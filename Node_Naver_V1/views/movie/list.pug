@@ -1,0 +1,21 @@
+extends ../layout
+block content
+    style.
+        .elipsis{
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:elipsis;
+        }
+    each movie,index in movies
+        section.w3-container
+            p.w3-xxlarge.title
+                //- !{}: html tag가 포함된 문자열을 tag를 반영하면
+                a(href=movie.link) !{movie.title}
+            p
+                img(src=movie.image)
+            p.subtitle.w3-xlarge.elipsis= movie.subtitle
+            p.pubDate= movie.pubDate
+            p.director= '감독: '+movie.director
+            p.actor= '배우:'+movie.actor
+            p.userRating= '평점: ' + movie.userRating
+            hr

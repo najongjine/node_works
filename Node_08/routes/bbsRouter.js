@@ -2,6 +2,12 @@ var express=require("express")
 var router=express.Router()
 var Blob = require('blob');
 
+var moment=require("moment")
+//require만 해주면 memoent 내에서 자체적으로 호출하여 사용하는 미들웨어
+var moment_timezone=require("moment-timezone")
+
+moment.tz.setDefault("Asia/Seoul")
+
 //models 폴더에 여러개의  vo가 있으면 그들을 배열로 만들어서 가져와라.
 var {bbsVO}=require("../models")
 
@@ -13,16 +19,16 @@ router.get("/",function(req,res){
 })
 router.get("/insert",function(req,res){
     let newbbs=new bbsVO({
-        b_date:'2020-03-10',
-        b_time:'11:04:00'
+        b_date:moment().format("YYYY[-]MM[-]DD"),
+        b_time:moment().format("HH:mm:ss")
     })
     res.render("bbs/write",{bbsVO:newbbs})
 })
 router.post("/insert",function(req,res){
     bbsVO.create({
         b_writer:req.body.b_writer,
-        b_date:req.body.b_date,
-        b_time:req.body.b_time,
+        b_date:moment().format("YYYY[-]MM[-]DD"),
+        b_time:moment().format("HH:mm:ss"),
         b_subject:req.body.b_subject,
         b_text:req.body.b_text
     })
