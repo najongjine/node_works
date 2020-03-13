@@ -1,0 +1,78 @@
+extends ../layout
+
+block content
+    script.
+        $(function(){
+            $('div').addClass('w3-padding-16')
+            $('input').addClass('w3-input w3-border w3-hover-light-gray')
+            $('label').addClass('w3-text-blue w3-bold')
+            $('.btn-list').click(function(){
+                document.location.replace('/gallery')
+            })
+            var updateCB=function(){
+                $.ajax({
+                    url:'/gallery/update/#{gallery._id}',
+                    type:'PUT',
+                    data:$('form').serialize()
+                })
+                .done(function(result){
+                    if(result.msg=='OK'){
+                        alert(result.data.nModified+"개의 변경 성공")
+                        document.location.replace('/gallery/view/#{gallery._id}')
+                    }
+                    else if(result.msg=='UPDATE FAIL'){
+                        if(result.data.nModified<1){
+                            alert('데이터를 업데이트 하지 못함')
+                        }
+                    }
+                    return false
+                })
+                .fail(function(err){
+                    alert('서버와 통신 오류')
+                    return false
+                })
+                .always(function(){
+                    return false
+                })
+            }
+            let version='!{gallery.__v}'
+            $('.btn-save').click(function(){
+                if($('#gStrTitle').val()==''){
+                    alert('사진제목을 입력하세요')
+                    $('#gStrTitle').focus()
+                    return false
+                }
+                if($('#gStrText').val()==''){
+                    alert('사진설명을 입력하세요')
+                    $('#gStrText').focus()
+                    return false
+                }
+                if($('#gOriginalPhotoName').val()==''){
+                    alert('사진파일을 선택하세요')
+                    return false
+                }
+                if(version!=''){
+                    updateCB()
+                    return false
+                }
+                $('form').submit()
+            })
+        })
+    section.w3-container.w3-padding-32
+        form(method='POST',enctype="multipart/form-data")
+            div
+                label 사진제목
+                input#gStrTitle(name='gStrTitle',value=gallery.gStrTitle)
+            div
+                label 사진설명
+                input#gStrText(name='gStrText',value=gallery.gStrText)
+            div
+                label 원본사진
+                img(src="/uploads/"+gallery.gUpLoadPhotoName,width="30%")
+                input#gOriginalPhotoName(type='file', name='gOriginalPhotoName',value=gallery.gOriginalPhotoName)
+            div
+                label 사진업로드 시각
+                input#gUpLoadStartDate(type='datetime',name='gUpLoadStartDate',value=gallery.gUpLoadStartDate)
+            div
+                button(type='button').w3-button.w3-green.w3-right.btn-list 리스트로가기
+                button(type='button').w3-button.w3-blue.w3-right.btn-save 저장

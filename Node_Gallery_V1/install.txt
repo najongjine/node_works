@@ -1,0 +1,16 @@
+npm i -save cookie-parser
+npm i -save debug
+npm i -save express
+npm i -save body-parser
+npm i -save http-errors
+npm i -save pug
+npm i -save morgan
+npm i -save mongoose
+# 외부 api 활용을 위함
+npm i -save request
+# 페이지네이션 구현
+npm i -save express-paginate
+# nodejs에서 사용하는 파일 업로드 미들웨어
+npm i -save multer
+npm i
+
