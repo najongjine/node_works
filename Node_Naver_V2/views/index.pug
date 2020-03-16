@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 index page
+  form(action='/naverBook/',method='GET')
+    input(name="searchName",placeholder="검색어를 입력", type="text")
+  each book,index in naverBooks
+    p.w3-xxlarge.title
+      //- !{}: html tag가 포함된 문자열을 tag를 반영하면
+      a(href=book.link) !{book.title}
+    p
+      img(src=book.image)
+    p= "저자: "+book.author
+    p= "가격: "+book.price+"원"
+    p= "할인: "+book.discount+"원"
+    p= "출판사: "+book.publisher
+    p= "출판일: "+book.pubdate
+    p= "isbn: "+book.isbn
+    p= "설명: "+book.description
+    hr
+  include page_list
