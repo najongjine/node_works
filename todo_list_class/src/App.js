@@ -67,6 +67,8 @@ class App extends Component {
     });
   };
   handleToggle = id => {
+    //this: 화살표 함수로 되어있는 이벤트 핸들러는 this가 바로 현재 컴포넌트다.
+    //this=App.js의 context(문맥,thread의 모든 정보를 담고있는 것)
     const { todoList } = this.state;
     //id 매개 변수에 담겨있는 값이 객체 배열에 몇번째 위치값이냐?
     const index = todoList.findIndex(todo => todo.id === id);
