@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+    style.
+        div{
+            margin-bottom:5%;
+        }
+    section.w3-container.w3-padding-32
+        form(method='POST',enctype="multipart/form-data")
+            div
+                label 이름
+                input.w3-input.w3-border.w3-margin-bottom#bName(name='bName',value=bucketVO.bName)
+            div
+                label 가격
+                input.w3-input.w3-border.w3-margin-bottom#bPrice(name='bPrice',value=bucketVO.bPrice,type='number')
+            div
+                label 설명
+                input.w3-input.w3-border.w3-margin-bottom#bText(name='bText',value=bucketVO.bText)
+            div
+                label 원본사진
+                img(src="/uploads/"+bucketVO.bUploadedFName,width="50%")
+            div
+                label(for="bOriginalFName") 교체할 이미지를 파일선택을 통해 해주세요
+                input.w3-input.w3-border.w3-margin-bottom#bOriginalFName(type='file', name='bOriginalFName',value=bucketVO.bOriginalFName)
+            
+            div
+                a(href="/myBucketList")
+                    button(type='button').w3-button.w3-green.w3-right.btn-list 리스트로가기
+                button.w3-button.w3-blue.w3-right 저장

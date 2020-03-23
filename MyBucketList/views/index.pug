@@ -1,0 +1,26 @@
+extends layout
+
+
+block content
+  style.
+    .bText{
+      text-overflow: ellipsis; 
+    }
+  section.w3-container
+    each bucketVO, index in bucketList
+     div(style='width:500px;height:500px;').w3-container.w3-col.s4.w3-row-padding
+      div.w3-card-4
+        header.w3-container.w3-light-grey
+          h3= bucketVO.bName
+        div.w3-container
+          p= bucketVO.bDate
+          hr
+          img(src="/uploads/"+bucketVO.bUploadedFName, style='width:200px;height:200px;').w3-left.w3-circle.w3-margin-right
+        p.bText= "설명: "+bucketVO.bText
+         hr
+        div.w3-cell-bottom
+          a(href="/myBucketList/detail/"+bucketVO._id)
+            button.w3-button.w3-block.w3-dark-grey view
+  section
+    a(href="/myBucketList/insert")
+      button.w3-button.w3-blue.w3-right 추가

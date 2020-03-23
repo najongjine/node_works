@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+    script.
+        $(function(){
+            $(".btn-delete").click(function(){
+                if(!confirm("데이터를 삭제하시겠습니까?")){
+                    return false
+                }
+                document.location.replace("/myBucketList/delete/#{bucketVO._id}")
+            })
+        })
+    style.
+        img,p{
+            overflow:auto;
+            margin-bottom:3%;
+        }
+        div{
+            margin-bottom:5%;
+        }
+    section.w3-container
+        p
+            img(src="/uploads/"+bucketVO.bUploadedFName)
+        p
+            b 이름: 
+            =bucketVO.bName
+        p
+            b 날짜: 
+            =bucketVO.bDate
+        p
+            b 가격: 
+            =bucketVO.bPrice
+        p
+            b 설명:
+            =bucketVO.bText
+    section
+        a(href="/myBucketList/update/"+bucketVO._id)
+            button.w3-button.w3-blue 수정
+        a(href="/myBucketList")
+            button.w3-button.w3-green 리스트로
+        button.w3-button.w3-red.w3-right.btn-delete 삭제
