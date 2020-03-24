@@ -15,7 +15,8 @@ block content
         div.w3-container
           p= bucketVO.bDate
           hr
-          img(src="/uploads/"+bucketVO.bUploadedFName, style='width:200px;height:200px;').w3-left.w3-circle.w3-margin-right
+          if bucketVO.bUploadedFName
+            img(src="/uploads/"+bucketVO.bUploadedFName, style='width:200px;height:200px;').w3-left.w3-circle.w3-margin-right
         p.bText= "설명: "+bucketVO.bText
          hr
         div.w3-cell-bottom
