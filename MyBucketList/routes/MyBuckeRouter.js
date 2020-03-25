@@ -25,6 +25,9 @@ var saveOptions = multer.diskStorage({
     callBackFunc(null, uploadFileName);
   }
 });
+
+//multer 라는 함수(클래스)에 json 매개변수를 넘겨줌.
+// 이 개념 통째를 saveFile 이라는 객체로 정의. JS에선 객체 자체가 1급 함수임.
 //실제로 파일을 업로드하는 함수
 var saveFile = multer({ storage: saveOptions }).single("bOriginalFName");
 
@@ -45,6 +48,8 @@ router.get("/insert", (req, res) => {
 });
 
 router.post("/insert", (req, res) => {
+  //saveFile 이라는 1급 객체를 실행하면서 (req, res) 를 매개변수로 주고, ()=> callback func에 err를 넘겨줌.
+  // 최상위 함수에서 전달받은 값을 callback 함수에서 공유해서 쓰고 있는 구조.
   saveFile(req, res, err => {
     if (err) {
       console.log(err);
@@ -62,6 +67,8 @@ router.post("/insert", (req, res) => {
       var _bDate = moment().format("YYYY[-]MM[-]DD");
       console.log("날짜: ", _bDate);
       vo.bDate = _bDate;
+
+      //vo 객체에서 save라는 함수를 실행하고 나서 call back 함수에 err, data를 넘겨줌.
       vo.save((err, data) => {
         res.redirect("/myBucketList");
       });
