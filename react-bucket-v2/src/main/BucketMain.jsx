@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BucketInsert from "./BucketInsert";
 import BucketList from "./BucketList";
+import BucketProvider from "../provider/BucketProvider";
 
 class BucketMain extends Component {
   id = 0;
@@ -16,7 +17,12 @@ class BucketMain extends Component {
         b_end_check: false,
         b_cancle: false
       }
-    ]
+    ],
+    changeFlag: id => this.changeFlag(id),
+    bucket_update: (id, b_title) => this.bucket_update(id, b_title),
+    bucket_add: b_title => this.bucket_add(b_title),
+    bucket_complete: (id, b_end_date) => this.bucket_complete(id, b_end_date),
+    toggleCancle: id => this.toggleCancle(id)
   };
 
   // 현재 컴포넌트가 모두 연결되고 화면에 나타난 직후
@@ -97,6 +103,7 @@ class BucketMain extends Component {
       bucketList: bucketList.concat({ b_id: ++this.id, ...bucket })
     });
   };
+
   bucket_update = (id, b_title) => {
     const { bucketList } = this.state;
     this.setState({
@@ -106,6 +113,40 @@ class BucketMain extends Component {
       bucketList: bucketList.map(bucket =>
         bucket.b_id === id ? { ...bucket, b_title: b_title } : bucket
       )
+    });
+  };
+  //완료 선택이 이루어 지면 bucketList를 map으로 반복하면서
+  //id 값과 일치하는 항목을 찾고
+  // 있으면 해당 항목을 변경하는
+  bucket_complete = (id, b_end_date) => {
+    const { bucketList } = this.state;
+
+    this.setState({
+      bucketList: bucketList.map(bucket => {
+        //id값 일치하는 리스트가 있나?
+        if (bucket.b_id === id) {
+          const date = new Date();
+          //현재 항목의 b_end_date 값이 없나?
+          //없으면 새로만든 date값을 사용하고, 있으면 값 지움
+          const b_end_date = bucket.b_end_date === "" ? date : "";
+          return { ...bucket, b_end_date };
+        } else {
+          return bucket;
+        }
+      })
+    });
+  };
+  toggleCancle = id => {
+    const { bucketList } = this.state;
+
+    this.setState({
+      bucketList: bucketList.map(bucket => {
+        if (bucket.b_id === id) {
+          return { ...bucket, b_cancle: !bucket.b_cancle };
+        } else {
+          return bucket;
+        }
+      })
     });
   };
   //react lifecycle method
@@ -121,12 +162,10 @@ class BucketMain extends Component {
   render() {
     return (
       <div>
-        <BucketInsert bucket_add={this.bucket_add} />
-        <BucketList
-          bucket_update={this.bucket_update}
-          bucketList={this.state.bucketList}
-          changeFlag={this.changeFlag}
-        />
+        <BucketProvider.Provider value={this.state}>
+          <BucketInsert />
+          <BucketList />
+        </BucketProvider.Provider>
       </div>
     );
   }
