@@ -8,7 +8,7 @@ class bbsList extends Component {
       return <BBsItem bbsVO={bbsVO} />;
     });
     return (
-      <table className="table table-all">
+      <table className="table table-all table-striped table-hover">
         <tr>
           <th>날짜</th>
           <th>작성자</th>

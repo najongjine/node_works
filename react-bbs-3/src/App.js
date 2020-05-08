@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import BBsMain from "./bbs/bbsMain";
 import MainNav from "./MainNav";
 import BBsWrite from "./bbs/bbsWrite";
+import BBsDetail from "./bbs/bbsDetail";
 
 function App() {
   const header_style = {
@@ -18,10 +19,24 @@ function App() {
       <Router>
         <MainNav />
         <Route exact path="/" component={BBsMain} />
-        <Route path="/bbsWrite" component={BBsWrite} />
+        <Switch>
+          <Route path="/bbsWrite/:bbsid" component={BBsWrite} />
+          <Route path="/bbsWrite/" component={BBsWrite} />
+        </Switch>
+        <Route path="/bbsDetail/:bbsid" component={BBsDetail} />
       </Router>
     </div>
   );
 }
 
 export default App;
+/*
+React Router
+React는 원칙이 SPA(single page app)
+일부를 교체하면서 보여주는 방식
+
+WAS와 다른점
+서버로 데이터를 가져와서 보여주기는 하되
+모든 페이지 정보를 서버로부터 가져와서 보여주는 방식이 아니고
+전체 페이지 중에서 필요한 부분만 교체하는 형식으로 어플리케이션이 작동.
+*/
